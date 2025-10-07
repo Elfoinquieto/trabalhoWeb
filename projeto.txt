@@ -1,0 +1,1 @@
+O sistema apenas contem cadastro e login de usuários, além de um CRUD completo de modelos de sites, onde posteriormente será apenas para administradores, onde eles faram CRUD de modelos e Usuários, alem de poder enviar pedidos. Já o usuario poderá criar e alterar um usuario e fazer CRUD de pedidos, alem de baixa=los apos o envio por parte dos administradores.
