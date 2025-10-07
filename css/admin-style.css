@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body {
+    background: linear-gradient(to left,
+            black 40%,
+            #131313 100%);
+}
+
+:root {
+    --verde_claro: #589693;
+    --verde_escuro: #0C5A59;
+    --rosa_roxo: linear-gradient(to right, #AF3B81 0%, #5432CF 100%);
+}
+
+
+.entrar {
+    margin: auto;
+    background: var(--rosa_roxo);
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
+}
+
+.entrar a {
+    color: white;
+    text-decoration: none;
+}
+
+.entrar:hover {
+    filter: brightness(110%);
+    transform: scale(1.05);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.container div {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    gap: 50px;
+}
+
+.container h3 {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    font-size: 30px;
+    margin: 60px;
+}
+
+.container img {
+    width: 300px;
+    margin: auto;
+}
+
+.tabela {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+}
+
+.tabela img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: top
+}
+
+.tabela td {
+    text-align: center;
+    padding: 20px;
+}
+
+.tabela table {
+    background-color: var(--verde_claro);
+    width: 1500px;
+    margin: 10px 0;
+    align-items: center;
+}
+.tabela table {
+    background-color: var(--verde_claro);
+    width: 1500px;
+    margin: auto 0;
+    align-items: center;
+}
+
+table,
+th,
+td {
+    text-align: center;
+     vertical-align: middle;
+    border: 2px solid var(--verde_escuro);
+}
+
+tr:hover{
+    background-color: #68b3af;
+}
+
+table th {
+    padding: 11px 0 11px;
+    background-color: var(--verde_escuro);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    padding: 8px;
+}
+
+table tr {
+    transition: all 0.5s ease;
+    border: 1px solid #ddd;
+}
+
+table td {
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding: 8px;
+}
+.editar{
+    background-color: #85A85C;
+}
+.excluir{
+    background-color: rgb(255, 37, 37);
+}
+
+.editar, .excluir{
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.7s ease;
+}
+.editar:hover, .excluir:hover {
+    background-color: #0C5A59;
+
+}
+
+.titulo{
+    text-decoration: underline;
+}
+
+
+.criar{
+    margin-bottom: 10px;
+    background: var(--verde_escuro);
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
+}
+
+.criar a {
+    color: white;
+    text-decoration: none;
+}
+
+.criar:hover {
+    filter: brightness(110%);
+    transform: scale(1.05);
+}
+
