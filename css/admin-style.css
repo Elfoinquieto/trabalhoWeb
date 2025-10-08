@@ -139,6 +139,10 @@ table td {
 }
 
 .editar, .excluir{
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: none;
     padding: 10px;
     border-radius: 20px;
     text-decoration: none;
@@ -146,7 +150,8 @@ table td {
     transition: all 0.7s ease;
 }
 .editar:hover, .excluir:hover {
-    background-color: #0C5A59;
+    filter: drop-shadow(150%);
+    transform: scale(1.1);
 
 }
 
@@ -176,5 +181,12 @@ table td {
 .criar:hover {
     filter: brightness(110%);
     transform: scale(1.05);
+}
+
+.form-action{
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 

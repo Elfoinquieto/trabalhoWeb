@@ -47,10 +47,10 @@
                 <h2>Insira seus dados para o Login</h2>
                 <form action="autenticar.php" method="POST" class="form">
                     <label for="email">E-mail</label>
-                    <input type="email" id="e-mail" name="email" placeholder="Digite o seu e-mail">
+                    <input type="email" id="e-mail" name="email">
 
                     <label for="password">Senha</label>
-                    <input type="password" id="password" name="senha" placeholder="Digite a sua senha">
+                    <input type="password" id="password" name="senha">
 
                     <a href="">Esqueci a minha senha</a>
                     <h2>Não tem uma conta? <a href="cadastrar.php">Crie uma aqui</a></h2>

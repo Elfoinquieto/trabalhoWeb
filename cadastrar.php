@@ -39,6 +39,8 @@
             <div class="form-container">
                 <?php if($erro === 'campos'): ?>
                 <p class="mensagem-erro">Preencha todos os campos.</p>
+                <?php elseif($erro === 'existente'): ?>
+                <p class="mensagem-erro">Já existe um modelo com esse nome.</p>
                 <?php endif; ?>
 
                 <h1>Bem Vindo!</h1>

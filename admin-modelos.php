@@ -55,16 +55,17 @@ $modelos = $modeloRepositorio->listar();
                             <td><?= htmlspecialchars($modelo->getDescricao()) ?></td>
                             <td><img src="<?= htmlspecialchars($modelo->getCaminhoImagem()) ?>" alt=""></td>
                             <td>
+                                <div class = "form-action">
                                 <form action="editar-modelo.php" method="POST">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
                                     <button  class = "editar"type="submit">Editar</button>
                                 </form>
-
-                                <form action="excluirModelo.php" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
+                                <form action="excluirModelo.php" method="POST" onsubmit="return confirmarExclusao();">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
                                     <button type="submit" class="excluir">Excluir</button>
-                                </form>
-                            </td>
+                                </form>
+                                </div>
+                           </td>
                         </tr>
 
                     <?php endforeach; ?>

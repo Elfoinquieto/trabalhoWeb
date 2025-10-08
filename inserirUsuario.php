@@ -12,7 +12,7 @@
     $repo = new UsuarioRepositorio($pdo);
 
     if($repo->buscarPorEmail($email)){
-        echo "Usuário já existe! {$email}\n";
+        header('Location: cadastrar.php?erro=existente');
         exit; 
     }
 
@@ -24,13 +24,8 @@
 
     $repo->salvar(new Usuario(0, $email, $senha, $nome_completo, $telefone)); 
 
-    echo "Usuário inserido: {$email}\n";
 
+    header('Location: login.php');
     
 
 ?>
-
-<html>
-    <br/>
-    <a href="login.php">Voltar para o Login</a>
-</html>

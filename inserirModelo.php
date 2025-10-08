@@ -12,7 +12,7 @@
     $repo = new ModeloRepositorio($pdo);
 
     if($repo->buscarPornome($nome)){
-        echo "Nome já existe! {$nome}\n";
+        header('Location: cadastrar-modelo.php?erro=existente');
         exit; 
     }
 
