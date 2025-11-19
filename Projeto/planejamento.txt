@@ -1,0 +1,34 @@
+19/11 
+Gustavo: Gerenciar Usuários(excluir, pesquisar e alterar permissao(admin e user)) -> nao abre pagina
+Cauan: Gerenciar pedidos ADMIN (mudar status(negar e enviar)) -> nao abre pagina
+Dois: Gerenciar Pedidos USUARIO(criar pedido, cancelar(deletar), upload) -> criar
+
+20/11
+Gustavo: Mudar perfil, e talvez 1 pagina crud
+Cauan: Gerenciar modelos
+
+21/11
+Os dois: Todas as paginas do crud
+Se nao paginas informativas
+22/11
+Gustavo: Home, pacotes 
+Cauan: Nossos trabalhos e sobre nos
+
+23/11
+Os dois: Nossos modelos -> São duas paginas
+24/11
+Gustavo: Fazer o que faltou
+25/11
+Cuan: Fazer o que faltou
+
+coisas para fazer:
+Paginas: 16
+CRUD: Pedidos, modelos, usuarios, personalizar perfil ->  5
+Forms:5
+Informativas:6
+
+feitos:
+Paginas: 2
+CRUD: Pedidos, modelos, usuarios, personalizar perfil -> 0
+Forms:2
+Informativas:
