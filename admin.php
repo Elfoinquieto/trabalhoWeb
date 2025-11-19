@@ -1,12 +1,12 @@
 <?php
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['usuario'])){
-        header('Location: login.php');
-        exit;
-    }
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.php');
+    exit;
+}
 
-    $usuarioLogado = $_SESSION['usuario'];
+$usuarioLogado = $_SESSION['usuario'];
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +30,8 @@
             <img src="img/logo.jpeg" alt="">
             <h3>Seja muito bem vindo (nome do usuário)</h3>
             <div>
-                <button class="entrar">Gerenciar Usuários </button>
-                <button class="entrar"> <a href="admin-modelos.php">Gerenciar Modelos</a></button>
+                <button class="entrar"> <a href="usuario/listar.php">Gerenciar Usuarios</a></button>
+                <button class="entrar"> <a href="modelo/listar.php">Gerenciar Modelos</a></button>
                 <button class="entrar">Gerenciar Pedidos</button>
             </div>
         </section>

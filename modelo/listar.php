@@ -4,9 +4,9 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: ../login-usuario/login.php");
     exit;
 }
-require_once __DIR__ . "/src/conexao-bd.php";
-require_once __DIR__ . "/src/Modelo/Modelo.php";
-require_once __DIR__ . "/src/Repositorio/ModeloRepositorio.php";
+require __DIR__ . "/../src/conexao-bd.php";
+require_once __DIR__ . "/../src/Modelo/Modelo.php";
+require_once __DIR__ . "/../src/Repositorio/ModeloRepositorio.php";
 
 $modeloRepositorio = new ModeloRepositorio($pdo);
 $modelos = $modeloRepositorio->listar();
@@ -18,8 +18,8 @@ $modelos = $modeloRepositorio->listar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/admin-style.css">
 
 
     <title>Admin</title>
@@ -30,7 +30,7 @@ $modelos = $modeloRepositorio->listar();
         <section class="navbar"></section>
         <section class="container">
             <h3>Administração - Koala WebStudio</h3>
-            <button class="entrar"><a href="admin.php">Gerenciar Geral</a></button>
+            <button class="entrar"><a href="../admin.php">Gerenciar Geral</a></button>
             <h3 class="titulo">Gerenciamento de Modelos</h3>
         </section>
         <section class="tabela">
@@ -46,7 +46,7 @@ $modelos = $modeloRepositorio->listar();
                     </tr>
                 </thead>
                 <tbody>
-                    <button class="criar"><a href="cadastrar-modelo.php">Novo Modelo</a></button>
+                    <button class="criar"><a href="cadastrar.php">Novo Modelo</a></button>
                     <?php foreach ($modelos as $modelo): ?>
                         <tr>
                             <td><?= htmlspecialchars($modelo->getId()) ?></td>
@@ -55,22 +55,23 @@ $modelos = $modeloRepositorio->listar();
                             <td><?= htmlspecialchars($modelo->getDescricao()) ?></td>
                             <td><img src="<?= htmlspecialchars($modelo->getCaminhoImagem()) ?>" alt=""></td>
                             <td>
-                                <div class = "form-action">
-                                <form action="editar-modelo.php" method="POST">
-                                    <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
-                                    <button  class = "editar"type="submit">Editar</button>
-                                </form>
-                                <form action="excluirModelo.php" method="POST" onsubmit="return confirmarExclusao();">
-                                    <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
-                                    <button type="submit" class="excluir">Excluir</button>
-                                </form>
+                                <div class="form-action">
+                                    <form action="editar.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
+                                        <button class="editar" type="submit">Editar</button>
+                                    </form>
+                                    <form action="deletar.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
+                                        <button class="excluir" type="submit">Excluir</button>
+                                    </form>
                                 </div>
-                           </td>
+                            </td>
                         </tr>
 
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
         </section>
     </main>
 

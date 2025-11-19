@@ -10,25 +10,76 @@ class UsuarioRepositorio
         $this->pdo = $pdo;
     }
 
+    public function contarTotal(): int
+    {
+        $sql = "SELECT COUNT(*) FROM usuarios";
+        return (int) $this->pdo->query($sql)->fetchColumn();
+    }
+
+    public function buscarPaginado(int $limite, int $offset, ?string $ordem = null, string $direcao = 'ASC'): array
+    {
+        $colunasPermitidas = ['email', 'permissao'];
+        $sql = "SELECT * FROM usuarios ";
+        if ($ordem !== null && in_array(strtolower($ordem), $colunasPermitidas)) {
+            $direcao = strtoupper($direcao) === 'DESC' ? 'DESC' : 'ASC';
+            $sql .= "ORDER BY {$ordem} {$direcao} ";
+        }
+        $sql .= " LIMIT ? OFFSET ?";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $limite, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $usuarios = [];
+
+        foreach ($dados as $linha) {
+            $usuarios[] = $this->formarObjeto($linha);
+        }
+
+        return $usuarios;
+    }
     public function formarObjeto(array $dados): Usuario
     {
-        return new Usuario((int)$dados['id'],$dados['email'],$dados['senha'],$dados['nome_completo'], $dados['telefone']);
+        $permissao = $dados['permissao'] ?? 'user';
+        return new Usuario((int) $dados['id'], $dados['email'], $dados['senha'], $dados['nome_completo'], $dados['telefone'], $permissao);
     }
 
-    public function buscarPorEmail(string $email): ?Usuario 
-    {   
-        $sql = "SELECT id, email, senha, nome_completo, telefone FROM usuarios WHERE email =?";
+
+    public function atualizarPermissao(int $id, string $novaPermissao): bool
+    {
+        $sql = "UPDATE usuarios SET permissao = :permissao WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1,$email);
+
+        $stmt->bindValue(':permissao', $novaPermissao, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+    public function buscarPorId(int $id): ?Usuario
+    {
+        $sql = "SELECT id, email, senha, nome_completo, telefone, permissao FROM usuarios WHERE id =?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
         $dados = $stmt->fetch();
-        return $dados ? $this->formarObjeto($dados): null;
+        return $dados ? $this->formarObjeto($dados) : null;
+    }
+    public function buscarPorEmail(string $email): ?Usuario
+    {
+        $sql = "SELECT id, email, senha, nome_completo, telefone, permissao FROM usuarios WHERE email =?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $email);
+        $stmt->execute();
+        $dados = $stmt->fetch();
+        return $dados ? $this->formarObjeto($dados) : null;
     }
 
-    public function autenticar(string $email, string $senha):bool
+    public function autenticar(string $email, string $senha): bool
     {
         $usuario = $this->buscarPorEmail($email);
-        return $usuario ? password_verify($senha, $usuario->getSenha()): false;
+        return $usuario ? password_verify($senha, $usuario->getSenha()) : false;
     }
 
     public function salvar(Usuario $usuario): void
@@ -40,8 +91,28 @@ class UsuarioRepositorio
         $stmt->bindValue(3, $usuario->getNomeCompleto());
         $stmt->bindValue(4, $usuario->getTelefone());
         $stmt->execute();
-
     }
+
+    public function listar(): array
+    {
+        $sql = "SELECT id, email, senha, nome_completo, telefone, permissao FROM usuarios";
+        $stmt = $this->pdo->query($sql);
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $usuarios = [];
+        foreach ($dados as $linha) {
+            $usuarios[] = $this->formarObjeto($linha);
+        }
+
+        return $usuarios;
+    }
+
+    public function deletar(int $id): bool
+    {
+        $st = $this->pdo->prepare("DELETE FROM usuarios WHERE id=?");
+        return $st->execute([$id]);
+    }
+
 }
 
 ?>

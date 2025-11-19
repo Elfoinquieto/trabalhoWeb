@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/src/conexao-bd.php';
-require_once __DIR__ . '/src/Repositorio/ModeloRepositorio.php';
-require_once __DIR__ . '/src/Modelo/Modelo.php';
+require __DIR__ . "/../src/conexao-bd.php";
+require_once __DIR__ . "/../src/Modelo/Modelo.php";
+require_once __DIR__ . "/../src/Repositorio/ModeloRepositorio.php";
 
 // Captura dos dados do formulário
 $id = $_POST['id'] ?? '';
@@ -13,8 +13,8 @@ $caminho_imagem = trim($_POST['caminho_imagem'] ?? '');
 $repo = new ModeloRepositorio($pdo);
 
 // Verificação de campos obrigatórios
-if ( $nome === '' || $descricao === '' || $pacote === '' || $caminho_imagem === '') {
-    header('Location: editar-modelo.php?erro=campos');
+if ($nome === '' || $descricao === '' || $pacote === '' || $caminho_imagem === '') {
+    header('Location: editar.php?erro=campos');
     exit;
 }
 
@@ -31,7 +31,7 @@ if (!$dados) {
 
 // Cria o objeto atualizado
 $modelo = new Modelo(
-    (int)$id,
+    (int) $id,
     $nome,
     $pacote,
     $descricao,
@@ -42,6 +42,6 @@ $modelo = new Modelo(
 $repo->alterar($modelo);
 
 // Redireciona de volta para a lista
-header('Location: admin-modelos.php');
+header('Location: listar.php');
 exit;
 ?>
