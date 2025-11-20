@@ -88,7 +88,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
         <section class="navbar">
             <a href="../admin.php">Painel</a>
             <a href="../usuario/listar.php">Usuarios</a>
-            <a href="../admin.php">Pedidos</a>
+            <a href="../pedido/listar.php">Pedidos</a>
         </section>
         <section class="container">
             <h3 class="titulo">Gerenciamento de Modelos</h3>

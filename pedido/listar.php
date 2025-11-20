@@ -10,11 +10,11 @@ if (!$usuarioLogado) {
     exit;
 }
 require __DIR__ . "/../src/conexao-bd.php";
-require_once __DIR__ . "/../src/Modelo/Usuario.php";
-require_once __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
+require_once __DIR__ . "/../src/Modelo/Pedido.php";
+require_once __DIR__ . "/../src/Repositorio/PedidoRepositorio.php";
 
-$usuarioRepositorio = new UsuarioRepositorio($pdo);
-$usuarios = $usuarioRepositorio->listar();
+$pedidoRepositorio = new PedidoRepositorio($pdo);
+$pedidos = $pedidoRepositorio->listar();
 
 //Itens por página da url
 $itens_por_pagina = filter_input(INPUT_GET, 'itens_por_pagina', FILTER_VALIDATE_INT) ?: 5;
@@ -26,17 +26,17 @@ $pagina_atual = isset($_GET['pagina']) ? max(1, (int) $_GET['pagina']) : 1;
 $offset = ($pagina_atual - 1) * $itens_por_pagina;
 
 //Cálculo do total de usuários
-$total_usuarios = $usuarioRepositorio->contarTotal();
+$total_pedidos = $pedidoRepositorio->contarTotal();
 
 //Cálculo do total de páginas
-$total_paginas = ceil($total_usuarios / $itens_por_pagina);
+$total_paginas = ceil($total_pedidos / $itens_por_pagina);
 
 //Parâmetros de ordenação
 $ordem = filter_input(INPUT_GET, 'ordem') ?: null;
 $direcao = filter_input(INPUT_GET, 'direcao') ?: 'ASC';
 
 // Busca produtos com ordenação
-$usuarios = $usuarioRepositorio->buscarPaginado($itens_por_pagina, $offset, $ordem, $direcao);
+$pedidos = $pedidoRepositorio->buscarPaginado($itens_por_pagina, $offset, $ordem, $direcao);
 
 // Função para gerar URLs de ordenação
 function gerarUrlOrdenacao($campo, $paginaAtual, $ordemAtual, $direcaoAtual, $itensPorPagina)
@@ -77,8 +77,8 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
         </div>
         <section class="navbar">
             <a href="../admin.php">Painel</a>
+            <a href="../usuario/listar.php">Usuarios</a>
             <a href="../modelo/listar.php">Modelos</a>
-            <a href="../pedido/listar.php">Pedidos</a>
         </section>
         <section class="container">
             <h3 class="titulo">Gerenciamento de Usuários</h3>
@@ -99,44 +99,54 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
             <table>
                 <thead>
                     <tr>
-                        <th>Nome Completo</th>
-                        <th>Telefone</th>
-                        <th><a href="<?= gerarUrlOrdenacao('email', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
-                                style="color: inherit; text-decoration: none;">Email
-                                <?= mostrarIconeOrdenacao('email', $ordem, $direcao) ?></a></th>
-                        <th><a href="<?= gerarUrlOrdenacao('permissao', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
-                                style="color: inherit; text-decoration: none;">Permissão
-                                <?= mostrarIconeOrdenacao('permissao', $ordem, $direcao) ?></a></th>
-                        <th>Alterar Permissão</th>
-                        <th>Action</th>
+                        <th><a href="<?= gerarUrlOrdenacao('nome', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
+                                style="color: inherit; text-decoration: none;">Nome
+                                <?= mostrarIconeOrdenacao('nome', $ordem, $direcao) ?></a></th>
+                        <th><a href="<?= gerarUrlOrdenacao('pacote', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
+                                style="color: inherit; text-decoration: none;">Pacote
+                                <?= mostrarIconeOrdenacao('pacote', $ordem, $direcao) ?></a></th>
+                        <th>Descrição</th>
+                        <th>Site</th>
+                        <th>Modelo</th>
+                        <th>Status</th>
+                        <th colspan="2">Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($usuarios as $usuario): ?>
+                    <?php foreach ($pedidos as $pedido): ?>
                         <tr>
-                            <td><?= htmlspecialchars($usuario->getNomeCompleto()) ?></td>
-                            <td><?= htmlspecialchars($usuario->getTelefone()) ?></td>
-                            <td><?= htmlspecialchars($usuario->getEmail()) ?></td>
-                            <td><?= htmlspecialchars($usuario->getPermissao()) ?></td>
+                            <td><?= htmlspecialchars($pedido->getNome()) ?></td>
+                            <td><?= htmlspecialchars($pedido->getPacote()) ?></td>
+                            <td><?= htmlspecialchars($pedido->getDescricao()) ?></td>
                             <td>
-                                <form action="mudarPermissao.php" method="POST"
+                                <?= htmlspecialchars($pedido->getSaite()) ?>
+                                <?php if ($pedido->getSaite() == ''): ?>
+                                    <input id="saite" name="saite" type="file" webkitdirectory multiple>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($pedido->getModelo()) ?></td>
+                            <td>
+                                <form action="mudarStatos.php" method="POST"
                                     style="display: flex; align-items: center; justify-content: space-around;">
-                                    <input type="hidden" name="id" value="<?= $usuario->getId() ?>">
-                                    <select name="permissao" class="select-permissao">
-                                        <option value="user" <?= $usuario->getPermissao() === 'user' ? 'selected' : '' ?>>User
+                                    <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                    <select name="statos" class="select-permissao">
+                                        <option value="pendente" <?= $pedido->getStatos() === 'pendente' ? 'selected' : '' ?>>Pendente
                                         </option>
-                                        <option value="admin" <?= $usuario->getPermissao() === 'admin' ? 'selected' : '' ?>>
-                                            Admin</option>
+                                        <option value="entregue" <?= $pedido->getStatos() === 'entregue' ? 'selected' : '' ?>>
+                                            Entregue</option>
                                     </select>
-                                    <button type="submit" class="editar">OK</button>
                                 </form>
 
                             </td>
                             <td>
-                                <form action="deletar.php" method="post">
-                                    <input type="hidden" name="id" value="<?= $usuario->getId() ?>">
-                                    <input type="submit" class="excluir" value="Excluir">
+                                <form action="mudarStatos.php" method="POST">
+                                    <button type="submit" class="editar">Enviar Mudanças</button>
+                                </form>
+                                <br/>
+                                <form action="negar.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                    <input type="submit" class="excluir" value="Negar Pedido">
                                 </form>
                             </td>
                         </tr>

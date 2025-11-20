@@ -1,11 +1,10 @@
 19/11 
 Gustavo: Gerenciar Usuários(excluir, pesquisar e alterar permissao(admin e user)) -> nao abre pagina
-Cauan: Gerenciar modelos 
-Dois: Gerenciar Pedidos USUARIO(criar pedido, cancelar(deletar), upload) -> criarn
 
 20/11
 Gustavo: Mudar perfil, e talvez 1 pagina crud
 Cauan: Gerenciar pedidos ADMIN (mudar status(negar e enviar)) -> nao abre pagina
+Dois: Gerenciar Pedidos USUARIO(criar pedido, cancelar(deletar), upload) -> criarn
 
 21/11
 Os dois: Todas as paginas do crud
@@ -29,6 +28,6 @@ Informativas:6
 
 feitos:
 Paginas: 2
-CRUD: Pedidos, modelos, usuarios, personalizar perfil -> 0
+CRUD: Pedidos, modelos, usuarios, personalizar perfil -> 1 Modelos,
 Forms:2
 Informativas:

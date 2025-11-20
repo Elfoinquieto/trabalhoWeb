@@ -36,7 +36,7 @@ $usuarioLogado = $_SESSION['usuario'];
             <div>
                 <button class="entrar"> <a href="usuario/listar.php">Gerenciar Usuarios</a></button>
                 <button class="entrar"> <a href="modelo/listar.php">Gerenciar Modelos</a></button>
-                <button class="entrar">Gerenciar Pedidos</button>
+                <button class="entrar"> <a href="pedido/listar.php">Gerenciar Pedidos</a></button>
             </div>
         </section>
     </main>
