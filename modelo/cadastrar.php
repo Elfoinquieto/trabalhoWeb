@@ -46,8 +46,8 @@ $erro = $_GET['erro'] ?? '';
                     <input type="text" id="pacote" name="pacote">
 
 
-                    <label class="titulo-topico" for="caminho_imagem">Caminho da Imagem</label>
-                    <input type="text" id="caminho_imagem" name="caminho_imagem">
+                    <label class="titulo-topico" for="imagem">Imagem</label>
+                    <input id="imagem" name="imagem" type="file" accept="image/*">
 
 
                     <button type="submit" value="cadastrar">Cadastrar</button>

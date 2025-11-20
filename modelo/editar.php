@@ -28,6 +28,13 @@ if (!$dados) {
 
 // Cria o objeto modelo com os dados atuais
 $modelo = $modeloRepositorio->formarObjeto($dados);
+
+if (method_exists($modelo, 'getImagem')) {
+    $valorImagem = $modelo->getImagem();
+} else {
+    $valorImagem = '';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,15 +76,22 @@ $modelo = $modeloRepositorio->formarObjeto($dados);
                     <label class="titulo-topico" for="pacote">Pacote</label>
                     <input type="text" id="pacote" name="pacote" value="<?= htmlspecialchars($modelo->getPacote()) ?>">
 
-                    <label class="titulo-topico" for="caminho_imagem">Caminho da Imagem</label>
-                    <input type="text" id="caminho_imagem" name="caminho_imagem"
-                        value="<?= htmlspecialchars($modelo->getCaminhoImagem()) ?>">
-
+                    <label class="titulo-topico" for="imagem">Imagem</label>
+                    <input id="imagem" name="imagem" type="file" accept="image/*">
+                    <?php if (!empty($valorImagem)): ?>
+                        <div class="preview-imagem">
+                            <!-- Ajuste o caminho conforme onde você armazena as imagens (ex: ../uploads/) -->
+                            <p>Imagem atual: <?= htmlspecialchars($valorImagem) ?></p>
+                            <img src="../img/<?= htmlspecialchars( $valorImagem) ?>" alt="Imagem" style="max-width:200px;display:block;margin-top:8px;">
+                            <!-- Mantém o nome da imagem atual caso o usuário não envie nova -->
+                            <input type="hidden" name="imagem_existente" value="<?= htmlspecialchars($valorImagem) ?>">
+                        </div>
+                    <?php endif; ?>
                     <button type="submit" value="atualizar">Atualizar</button>
                 </form>
             </div>
             <div class="form-img">
-                <img src="img/logo.jpeg" alt="" class="logo">
+                <img src="../img/logo.jpeg" alt="" class="logo">
             </div>
         </section>
     </main>

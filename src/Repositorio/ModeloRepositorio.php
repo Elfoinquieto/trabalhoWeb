@@ -12,12 +12,12 @@ class ModeloRepositorio
 
     public function formarObjeto(array $dados): Modelo
     {
-        return new Modelo((int)$dados['id'],$dados['nome'],$dados['pacote'],$dados['descricao'], $dados['caminho_imagem']);
+        return new Modelo((int)$dados['id'],$dados['nome'],$dados['pacote'],$dados['descricao'], $dados['imagem']);
     }
 
     public function buscarPornome(string $nome): ?Modelo 
     {   
-        $sql = "SELECT id, nome, pacote, descricao, caminho_imagem FROM modelos WHERE nome =?";
+        $sql = "SELECT id, nome, pacote, descricao, imagem FROM modelos WHERE nome =?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1,$nome);
         $stmt->execute();
@@ -27,23 +27,23 @@ class ModeloRepositorio
 
     public function salvar(Modelo $modelo): void
     {
-        $sql = "INSERT INTO modelos(nome, pacote, descricao, caminho_imagem) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO modelos(nome, pacote, descricao, imagem) VALUES (?,?,?,?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, $modelo->getNome());
         $stmt->bindValue(2, $modelo->getPacote());
         $stmt->bindValue(3, $modelo->getDescricao());
-        $stmt->bindValue(4, $modelo->getCaminhoImagem());
+        $stmt->bindValue(4, $modelo->getImagem());
         $stmt->execute();
     }
 
     public function alterar(Modelo $modelo): void
     {
-        $sql = "UPDATE modelos SET nome = ?, pacote = ?, descricao = ?, caminho_imagem = ? WHERE id = ?";
+        $sql = "UPDATE modelos SET nome = ?, pacote = ?, descricao = ?, imagem = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(1, $modelo->getNome());
         $stmt->bindValue(2, $modelo->getPacote());
         $stmt->bindValue(3, $modelo->getDescricao());
-        $stmt->bindValue(4, $modelo->getCaminhoImagem());
+        $stmt->bindValue(4, $modelo->getImagem());
         $stmt->bindValue(5, $modelo->getId());
         $stmt->execute();
     }
@@ -56,7 +56,7 @@ class ModeloRepositorio
 
     public function listar(): array
     {
-        $sql = "SELECT id, nome, pacote, descricao, caminho_imagem FROM modelos";
+        $sql = "SELECT id, nome, pacote, descricao, imagem FROM modelos";
         $stmt = $this->pdo->query($sql);
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

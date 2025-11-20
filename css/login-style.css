@@ -32,6 +32,7 @@ main {
   width: 1000px;
   height: 550px;
   border-radius: 10px;
+  height: max-content;
 }
 
 .form-container {
@@ -40,6 +41,7 @@ main {
   display: flex;
   flex-direction: column;
   margin-left: 100px;
+  height: max-content;
 }
 
 .form-container h1 {

@@ -5,13 +5,13 @@
         private string $nome;
         private string $pacote;
         private string $descricao;
-        private string $caminho_imagem;
+        private string $imagem;
 
         //Método construtor
-        public function __construct(int $id, string $nome, string $pacote, string $descricao, string $caminho_imagem){
+        public function __construct(int $id, string $nome, string $pacote, string $descricao, string $imagem){
             $this->id = $id;
             $this->descricao = $descricao;
-            $this->caminho_imagem = $caminho_imagem;
+            $this->imagem = $imagem;
             $this->nome = $nome;
             $this->pacote = $pacote;
         }
@@ -26,9 +26,9 @@
             return $this->descricao;
         }
 
-        public function getCaminhoImagem(): string
+        public function getImagem(): string
         {
-            return $this->caminho_imagem;
+            return $this->imagem;
         }
 
         public function getNome(): string

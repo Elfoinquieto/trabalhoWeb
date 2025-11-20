@@ -29,7 +29,7 @@ CREATE TABLE `modelos` (
   `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `pacote` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `descricao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `caminho_imagem` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagem` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -74,8 +74,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'Cauan de Souza Valter Stocco','(41)8405-2396','cauanstocco@hotmail.com','$2y$10$xoOVAklMoHCExTNimeBJceXGqKDQ29fr/mJyVpmBGjNaszBfu0o2e','2025-10-06 17:11:54','2025-10-06 17:11:54'),(3,'Cauan de Souza Valter Stocco','(41)8405-2396','cauandesouzavalterstocco@gmail.com','$2y$10$zZfHNgOYHczmvMwplPv7vuRl4nCHKnguAb6i45gev5i0FA6hOCr3u','2025-10-06 17:17:07','2025-10-06 17:17:07'),(4,'Bem formal','/img/cafe.jpg','Formal','$2y$10$.Zm99vk53i1sPDbyXdi04u9HiNorqwXOyY.88akZInTBx2VyTktI2','2025-10-06 19:10:27','2025-10-06 19:10:27');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+INSERT INTO `usuarios` VALUES (2,'Cauan de Souza Valter Stocco','(41)8405-2396','cauanstocco@hotmail.com','$2y$10$xoOVAklMoHCExTNimeBJceXGqKDQ29fr/mJyVpmBGjNaszBfu0o2e', 'admin','2025-10-06 17:11:54','2025-10-06 17:11:54');
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

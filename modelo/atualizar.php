@@ -8,12 +8,12 @@ $id = $_POST['id'] ?? '';
 $nome = trim($_POST['nome'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
 $pacote = trim($_POST['pacote'] ?? '');
-$caminho_imagem = trim($_POST['caminho_imagem'] ?? '');
+$imagem = trim($_POST['imagem'] ?? '');
 
 $repo = new ModeloRepositorio($pdo);
 
 // Verificação de campos obrigatórios
-if ($nome === '' || $descricao === '' || $pacote === '' || $caminho_imagem === '') {
+if ($nome === '' || $descricao === '' || $pacote === '' || $imagem === '') {
     header('Location: editar.php?erro=campos');
     exit;
 }
@@ -35,7 +35,7 @@ $modelo = new Modelo(
     $nome,
     $pacote,
     $descricao,
-    $caminho_imagem
+    $imagem
 );
 
 // Atualiza no banco
