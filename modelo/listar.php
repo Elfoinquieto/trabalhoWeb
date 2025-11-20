@@ -1,7 +1,12 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../login-usuario/login.php");
+    header("Location: ../login.php");
+    exit;
+}
+$usuarioLogado = $_SESSION['usuario'] ?? null;
+if (!$usuarioLogado) {
+    header('Location: ../login.php');
     exit;
 }
 require __DIR__ . "/../src/conexao-bd.php";
@@ -27,10 +32,17 @@ $modelos = $modeloRepositorio->listar();
 
 <body>
     <main>
-        <section class="navbar"></section>
+        <div class="topo-direita">
+            <form action="../logout.php" method="post" style="display:inline;">
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
+        </div>
+        <section class="navbar">
+            <a href="../admin.php">Painel</a>
+            <a href="../usuario/listar.php">Usuarios</a>
+            <a href="../admin.php">Pedidos</a>
+        </section>
         <section class="container">
-            <h3>Administração - Koala WebStudio</h3>
-            <button class="entrar"><a href="../admin.php">Gerenciar Geral</a></button>
             <h3 class="titulo">Gerenciamento de Modelos</h3>
         </section>
         <section class="tabela">

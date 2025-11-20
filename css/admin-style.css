@@ -228,3 +228,100 @@ table td {
   font-weight: normal;
   color: #fff;
 }
+
+.form-paginacao {
+  width: 75%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-paginacao label {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* Estiliza a caixa de seleção <select> */
+.form-paginacao select {
+  font-family: "Ubuntu", sans-serif; /* Garante a fonte correta */
+  font-size: 20px;
+  padding: 5px 8px; /* Espaçamento interno */
+  border: 1px solid #ebc181; /* Borda com a cor do seu tema */
+  border-radius: 5px; /* Bordas arredondadas */
+  background-color: #ffffff;
+  cursor: pointer; /* Mostra a "mãozinha" */
+}
+
+/* (Opcional) Adiciona um destaque quando você clica na caixa */
+.form-paginacao select:focus {
+  outline: none;
+  border-color: #d9a95f; /* Cor de destaque mais escura */
+  box-shadow: 0 0 5px rgba(235, 193, 129, 0.5); /* Sombra suave */
+}
+
+.navbar {
+  font-family: "Ubuntu", sans-serif;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2.4rem;
+  margin-top: 100px;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #ffffff;
+  position: relative;
+  padding: 0.55rem 0.4rem;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: #589693;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background: #ffffff; /* cor destaque */
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width 0.28s;
+}
+
+.navbar a:hover::after {
+  width: 70%;
+}
+
+.topo-direita {
+  margin: 5px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.topo-direita .botao-sair {
+  font-size: 16px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  background-color: #be2e2e;
+  transition: all 0.3s ease;
+}
+.topo-direita .botao-sair:hover {
+  background-color: #ff4c4c;
+}

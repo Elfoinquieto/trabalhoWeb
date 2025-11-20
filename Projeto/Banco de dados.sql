@@ -74,7 +74,8 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'Cauan de Souza Valter Stocco','(41)8405-2396','cauanstocco@hotmail.com','$2y$10$xoOVAklMoHCExTNimeBJceXGqKDQ29fr/mJyVpmBGjNaszBfu0o2e', 'admin','2025-10-06 17:11:54','2025-10-06 17:11:54');
+INSERT INTO `usuarios` VALUES (1,'Usuário Admin','(41)8405-2396','admin@exemplo.com','$2y$10$xoOVAklMoHCExTNimeBJceXGqKDQ29fr/mJyVpmBGjNaszBfu0o2e', 'admin','2025-10-06 17:11:54','2025-10-06 17:11:54');
+INSERT INTO `usuarios` VALUES (2,'Usuário User','(41)8405-2396','user@exemplo.com','$2y$10$xoOVAklMoHCExTNimeBJceXGqKDQ29fr/mJyVpmBGjNaszBfu0o2e', 'user','2025-10-06 17:11:54','2025-10-06 17:11:54');
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

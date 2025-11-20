@@ -24,11 +24,15 @@ $usuarioLogado = $_SESSION['usuario'];
 
 <body>
     <main>
-        <section class="navbar"></section>
+        <div class="topo-direita">
+            <form action="../logout.php" method="post" style="display:inline;">
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
+        </div>
         <section class="container">
-            <h3>Administração - Koala WebStudio</h3>
+            <h3>Painel Administrativo</h3>
             <img src="img/logo.jpeg" alt="">
-            <h3>Seja muito bem vindo (nome do usuário)</h3>
+            <h3>Seja muito bem vindo <strong><?php echo htmlspecialchars($usuarioLogado); ?></strong></h3>
             <div>
                 <button class="entrar"> <a href="usuario/listar.php">Gerenciar Usuarios</a></button>
                 <button class="entrar"> <a href="modelo/listar.php">Gerenciar Modelos</a></button>

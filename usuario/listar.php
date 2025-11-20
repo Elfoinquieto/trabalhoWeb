@@ -4,6 +4,11 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: ../login.php");
     exit;
 }
+$usuarioLogado = $_SESSION['usuario'] ?? null;
+if (!$usuarioLogado) {
+    header('Location: ../login.php');
+    exit;
+}
 require __DIR__ . "/../src/conexao-bd.php";
 require_once __DIR__ . "/../src/Modelo/Usuario.php";
 require_once __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
@@ -65,14 +70,17 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
 
 <body>
     <main>
+        <div class="topo-direita">
+            <form action="../logout.php" method="post" style="display:inline;">
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
+        </div>
         <section class="navbar">
             <a href="../admin.php">Painel</a>
-            <a href="../admin.php">Modelos</a>
+            <a href="../modelo/listar.php">Modelos</a>
             <a href="../admin.php">Pedidos</a>
         </section>
         <section class="container">
-            <h3>Administração - Koala WebStudio</h3>
-            <button class="entrar"><a href="../admin.php">Gerenciar Geral</a></button>
             <h3 class="titulo">Gerenciamento de Usuários</h3>
         </section>
 
