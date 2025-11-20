@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+:root {
+  --verde_claro: #589693;
+  --verde_escuro: #0c5a59;
+  --rosa_roxo: linear-gradient(to right, #af3b81 0%, #5432cf 100%);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+}
+.container .titulo2 {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 30px;
+
+  background: var(--rosa_roxo);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.label-form {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.form input {
+  color: white;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+.form button {
+  margin: auto;
+  margin-top: 20px;
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  border: none;
+  background: var(--rosa_roxo);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.form button:hover {
+  transform: scale(1.07);
+}
