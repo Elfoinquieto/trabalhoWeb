@@ -5,6 +5,7 @@ Feito
 
 21/11
 Os dois: Todas as paginas do crud
+Gustavo: fazer o editar senha usuario
 Se nao paginas informativas
 22/11
 Gustavo: Home, pacotes 
@@ -17,7 +18,6 @@ Gustavo: Fazer o que faltou
 deixar tudo mais bunitin
 25/11
 Cuan: Fazer o que faltou
-fazer o editar senha usuario
 
 coisas para fazer:
 Paginas: 16
