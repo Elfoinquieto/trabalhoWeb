@@ -9,7 +9,18 @@ class UsuarioRepositorio
     {
         $this->pdo = $pdo;
     }
+    public function alterar(Usuario $usuario): bool
+    {
+        $sql = "UPDATE usuarios SET nome_completo = :nome, email = :email, telefone = :telefone WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
 
+        $stmt->bindValue(':nome', $usuario->getNomeCompleto(), PDO::PARAM_STR);
+        $stmt->bindValue(':email', $usuario->getEmail(), PDO::PARAM_STR);
+        $stmt->bindValue(':telefone', $usuario->getTelefone(), PDO::PARAM_STR);
+        $stmt->bindValue(':id', $usuario->getId(), PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
     public function contarTotal(): int
     {
         $sql = "SELECT COUNT(*) FROM usuarios";

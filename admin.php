@@ -25,7 +25,7 @@ $usuarioLogado = $_SESSION['usuario'];
 <body>
     <main>
         <div class="topo-direita">
-            <form action="../logout.php" method="post" style="display:inline;">
+            <form action="logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Sair</button>
             </form>
         </div>

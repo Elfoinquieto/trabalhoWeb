@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/../src/conexao-bd.php";
-require_once __DIR__ . "/../src/Modelo/Modelo.php";
-require_once __DIR__ . "/../src/Repositorio/ModeloRepositorio.php";
+require_once __DIR__ . "/../src/Modelo/Usuario.php";
+require_once __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
 
 // Captura dos dados do formulário
 $id = $_POST['id'] ?? '';
@@ -9,13 +9,14 @@ $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
 
-$repo = new ModeloRepositorio($pdo);
+$repo = new UsuarioRepositorio($pdo);
 
 // Verificação de campos obrigatórios
 if ($nome === '' || $email === '' || $telefone === '') {
     header('Location: editar.php?erro=campos');
     exit;
 }
+
 
 // Buscar o modelo existente
 $sql = "SELECT * FROM usuarios WHERE id = ?";
@@ -29,17 +30,20 @@ if (!$dados) {
 }
 
 // Cria o objeto atualizado
-$modelo = new Modelo(
+$usuario = new Usuario(
     (int) $id,
-    $nome,
     $email,
+    $dados['senha'],
+    $nome,
     $telefone,
+    $dados['permissao']
+
 );
 
 // Atualiza no banco
-$repo->alterar($modelo);
+$repo->alterar($usuario);
 
 // Redireciona de volta para a lista
-header('Location: listar.php');
+header('Location: editar.php?sucesso=1');
 exit;
 ?>

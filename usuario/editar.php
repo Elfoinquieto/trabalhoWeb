@@ -40,9 +40,14 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
         <section class="container">
             <h3 class="titulo2">Seu Perfil</h3>
         </section>
-        <?php if ($erro === 'campos'): ?>
-            <p class="mensagem-erro">Preencha todos os campos.</p>
-        <?php endif; ?>
+        <div class="container-mensagem">
+            <?php if ($erro === 'campos'): ?>
+                <p class="mensagem-erro">Preencha todos os campos.</p>
+            <?php endif; ?>
+            <?php if (isset($_GET['sucesso'])): ?>
+                <p class="mensagem-sucesso">Perfil atualizado com sucesso</p>
+            <?php endif; ?>
+        </div>
         <form action="atualizar.php" method="POST" class="form">
             <input type="hidden" name="id" value="<?= htmlspecialchars($usuario->getId()) ?>">
 
@@ -62,6 +67,24 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
         <section class="tabela" style="display: flex; flex-direction: column; align-items: center;">
         </section>
     </main>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var msg = document.querySelector('.mensagem-erro');
+            if (msg) {
+                setTimeout(function () {
+                    msg.classList.add('oculto');
+                }, 5000);
+            }
+        });
+        window.addEventListener('DOMContentLoaded', function () {
+            var msg = document.querySelector('.mensagem-sucesso');
+            if (msg) {
+                setTimeout(function () {
+                    msg.classList.add('oculto');
+                }, 5000);
+            }
+        });
+    </script>
 
 </body>
 
