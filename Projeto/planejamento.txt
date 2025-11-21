@@ -1,10 +1,7 @@
 19/11 
-Gustavo: Gerenciar Usuários(excluir, pesquisar e alterar permissao(admin e user)) -> nao abre pagina
+Feito
 
 20/11
-Gustavo: Mudar perfil, e talvez 1 pagina crud
-Cauan: Gerenciar pedidos ADMIN (mudar status(negar e enviar)) -> nao abre pagina
-Dois: Gerenciar Pedidos USUARIO(criar pedido, cancelar(deletar), upload) -> criarn
 
 21/11
 Os dois: Todas as paginas do crud
@@ -17,8 +14,10 @@ Cauan: Nossos trabalhos e sobre nos
 Os dois: Nossos modelos -> São duas paginas
 24/11
 Gustavo: Fazer o que faltou
+deixar tudo mais bunitin
 25/11
 Cuan: Fazer o que faltou
+fazer o editar senha usuario
 
 coisas para fazer:
 Paginas: 16
@@ -28,6 +27,6 @@ Informativas:6
 
 feitos:
 Paginas: 2
-CRUD: Pedidos, modelos, usuarios, personalizar perfil -> 1 Modelos,
+CRUD: Pedidos, modelos, usuarios, personalizar perfil -> 4 Modelos, Usuarios, 1/2 personalizar perfil, pedidos
 Forms:2
 Informativas:

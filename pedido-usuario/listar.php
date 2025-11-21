@@ -77,20 +77,24 @@ $pedidos = $pedidoRepositorio->listarPorEmail($usuarioLogado);
                     </thead>
                     <tbody>
                         <?php foreach ($pedidos as $pedido): ?>
-                            <?php if (!in_array($pedido->getId(), $_SESSION['ocultos'])): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($pedido->getNome()) ?></td>
-                                    <td><?= htmlspecialchars($pedido->getStatos()) ?></td>
-                                    <td>
-                                        <?php if ($pedido->getStatos() === 'entregue'): ?>
-                                            <button class="editar">Upload</button>
-                                        <?php else: ?>
+                            <tr>
+                                <td><?= htmlspecialchars($pedido->getNome()) ?></td>
+                                <td><?= htmlspecialchars($pedido->getStatos()) ?></td>
+                                <td>
+                                    <?php if ($pedido->getStatos() === 'entregue'): ?>
+                                        <button class="editar">Upload</button>
+                                        <form action="deletar.php" method="POST" style="display:inline;">
+                                            <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                            <button class="excluir">Deletar Pedido</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <form action="deletar.php" method="POST" style="display:inline;">
+                                            <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
                                             <button class="excluir">Cancelar Pedido</button>
-                                        <?php endif; ?>
-
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
+                                        </form>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
