@@ -56,6 +56,16 @@ class PedidoRepositorio
         return $stmt->execute();
     }
 
+    public function negar(int $id): bool
+    {
+        $sql = "UPDATE pedidos SET statos = 'Negado' WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
     public function atualizarSaite(int $id, string $novaSaite): bool
     {
         $sql = "UPDATE pedidos SET saite = :saite WHERE id = :id";

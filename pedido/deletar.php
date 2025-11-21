@@ -5,6 +5,6 @@ require __DIR__ . "/../src/Modelo/Pedido.php";
 require __DIR__ . "/../src/Repositorio/PedidoRepositorio.php";
 
 $pedidoRepositorio = new PedidoRepositorio($pdo);
-$pedidoRepositorio->negar($_POST['id']);
+$pedidoRepositorio->deletar($_POST['id']);
 
 header("Location: listar.php");

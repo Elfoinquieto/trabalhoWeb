@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['ocultos'])) {
+    $_SESSION['ocultos'] = [];
+}
+
 if (!isset($_SESSION['usuario'])) {
     header("Location: ../login.php");
     exit;
@@ -81,7 +85,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
             <a href="../modelo/listar.php">Modelos</a>
         </section>
         <section class="container">
-            <h3 class="titulo">Gerenciamento de Usuários</h3>
+            <h3 class="titulo">Gerenciamento de Pedidos</h3>
         </section>
 
         <form class="form-paginacao" method="GET" action="">
@@ -114,43 +118,58 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($pedidos as $pedido): ?>
+                    <?php foreach ($pedidos as $pedido):?>
+                    <?php if (!in_array($pedido->getId(), $_SESSION['ocultos'])):?>
                         <tr>
                             <td><?= htmlspecialchars($pedido->getNome()) ?></td>
                             <td><?= htmlspecialchars($pedido->getPacote()) ?></td>
                             <td><?= htmlspecialchars($pedido->getDescricao()) ?></td>
                             <td>
-                                <?= htmlspecialchars($pedido->getSaite()) ?>
-                                <?php if ($pedido->getSaite() == ''): ?>
-                                    <input id="saite" name="saite" type="file" webkitdirectory multiple>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= htmlspecialchars($pedido->getModelo()) ?></td>
-                            <td>
                                 <form action="mudarStatos.php" method="POST"
                                     style="display: flex; align-items: center; justify-content: space-around;">
-                                    <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
-                                    <select name="statos" class="select-permissao">
-                                        <option value="pendente" <?= $pedido->getStatos() === 'pendente' ? 'selected' : '' ?>>Pendente
-                                        </option>
-                                        <option value="entregue" <?= $pedido->getStatos() === 'entregue' ? 'selected' : '' ?>>
-                                            Entregue</option>
-                                    </select>
-                                </form>
+                                    <?= htmlspecialchars($pedido->getSaite()) ?>
+                                    <?php if ($pedido->getSaite() == ''): ?>
+                                        <input id="saite" name="saite" type="file" webkitdirectory multiple>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= htmlspecialchars($pedido->getModelo()) ?></td>
+                                <td>
+                                    <?php if ($pedido->getStatos() != 'Negado'): ?>
+                                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                        <select name="statos" class="select-permissao">
+                                            <option value="pendente" <?= $pedido->getStatos() === 'pendente' ? 'selected' : '' ?>>Pendente
+                                            </option>
+                                            <option value="entregue" <?= $pedido->getStatos() === 'entregue' ? 'selected' : '' ?>>
+                                                Entregue</option>
+                                        </select>
 
-                            </td>
-                            <td>
-                                <form action="mudarStatos.php" method="POST">
+                                    <?php else: ?>
+                                        <?= htmlspecialchars($pedido->getStatos()) ?>
+                                    <?php endif; ?>
+
+                                </td>
+                                <td>
+                                <?php if ($pedido->getStatos() != 'Negado'): ?>
                                     <button type="submit" class="editar">Enviar Mudanças</button>
+                                    </form>
+                                    <br/>
+                                    <form action="negar.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                        <input type="submit" class="excluir" value="Negar Pedido">
+                                    </form>
+                                
+                                <?php else: ?>
                                 </form>
-                                <br/>
-                                <form action="negar.php" method="post">
-                                    <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
-                                    <input type="submit" class="excluir" value="Negar Pedido">
-                                </form>
-                            </td>
+                                    <p>Pedido Negado</p>
+                                    <br/>
+                                    <form action="ocultarPedido.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                        <input type="submit" class="excluir" value="Deixar de exibir">
+                                    </form>
+                                <?php endif; ?>
+                                </td>
                         </tr>
-
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>

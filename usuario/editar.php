@@ -5,6 +5,7 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 $usuarioLogado = $_SESSION['usuario'] ?? null;
+$erro = $_GET['erro'] ?? '';
 if (!$usuarioLogado) {
     header('Location: ../login.php');
     exit;
@@ -12,7 +13,6 @@ if (!$usuarioLogado) {
 require __DIR__ . "/../src/conexao-bd.php";
 require_once __DIR__ . "/../src/Modelo/Usuario.php";
 require_once __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
-
 
 $usuarioRepositorio = new UsuarioRepositorio($pdo);
 $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
@@ -40,7 +40,9 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
         <section class="container">
             <h3 class="titulo2">Seu Perfil</h3>
         </section>
-
+        <?php if ($erro === 'campos'): ?>
+            <p class="mensagem-erro">Preencha todos os campos.</p>
+        <?php endif; ?>
         <form action="atualizar.php" method="POST" class="form">
             <input type="hidden" name="id" value="<?= htmlspecialchars($usuario->getId()) ?>">
 
@@ -49,7 +51,7 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
                 value="<?= htmlspecialchars($usuario->getNomeCompleto()) ?>">
 
             <label class="label-form" for="descricao">Email</label>
-            <input type="text" id="descricao" name="descricao" class="input-form" style="background-color: #318684ff;"
+            <input type="text" id="email" name="email" class="input-form" style="background-color: #318684ff;"
                 value="<?= htmlspecialchars($usuario->getEmail()) ?>">
 
             <label class="label-form" for="telefone">Telefone</label>
@@ -57,7 +59,6 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
                 style="background-color: var(--verde_claro);" value="<?= htmlspecialchars($usuario->getTelefone()) ?>">
             <button type="submit" value="atualizar">Atualizar</button>
         </form>
-
         <section class="tabela" style="display: flex; flex-direction: column; align-items: center;">
         </section>
     </main>
