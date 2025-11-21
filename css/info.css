@@ -18,13 +18,12 @@
   font-size: 40px;
   text-align: center;
   margin-top: 30px;
-  height: 80px;
   background: var(--rosa_roxo);
   -webkit-background-clip: text;
   color: transparent;
 }
 .container-mensagem {
-  height: 20px;
+  height: 10px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -63,4 +62,48 @@
 }
 .form button:hover {
   transform: scale(1.07);
+}
+
+.navbar-info {
+  font-family: "Ubuntu", sans-serif;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2.4rem;
+  margin-top: 20px;
+}
+.navbar-info img {
+  height: 80px;
+  margin-left: 20px;
+  border-radius: 100%;
+}
+.links a {
+  color: var(--verde_claro);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding: 0.55rem 0.4rem;
+  margin: 0 10px;
+  transition: color 0.2s;
+}
+.links a:hover {
+  color: #589693;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width 0.28s;
+}
+
+.links a:hover::after {
+  width: 70%;
 }

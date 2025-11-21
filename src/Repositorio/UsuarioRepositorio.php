@@ -21,6 +21,15 @@ class UsuarioRepositorio
 
         return $stmt->execute();
     }
+    public function alterarSenha(Usuario $usuario): bool
+    {
+        $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->bindValue(1, password_hash($usuario->getSenha(), PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $stmt->bindValue(2, $usuario->getId(), PDO::PARAM_INT);
+        return $stmt->execute();
+    }
     public function contarTotal(): int
     {
         $sql = "SELECT COUNT(*) FROM usuarios";

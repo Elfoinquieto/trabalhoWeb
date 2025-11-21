@@ -37,7 +37,29 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
 
 <body>
     <main>
-        <section class="container">
+        <div class="navbar-info">
+            <img src="../img/logo.jpeg" alt="Koala WebStudio" />
+            <div class="links">
+                <a href="../index.php">Home</a>
+                <a href="">Nosso Trabalho</a>
+                <a href="">Pacotes</a>
+                <a href="">Modelos</a>
+                <a href="">Sobre Nós</a>
+            </div>
+            <div class="topo-direita">
+                <?php if ($usuario->getPermissao() === 'admin') {
+                    ?>
+                    <a href="admin.php" class="botao-admin">Admin</a>
+                <?php } ?>
+                <img src="../img/user (2).png" alt=""
+                    style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
+                    onclick="location.href='./usuario/editar.php'">
+                <form action="logout.php" method="post" style="display:inline;">
+                    <button type="submit" class="botao-sair">Sair</button>
+                </form>
+            </div>
+        </div>
+        <section class="container" style="margin-top: -10px;">
             <h3 class="titulo2">Seu Perfil</h3>
         </section>
         <div class="container-mensagem">
@@ -64,7 +86,9 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
                 style="background-color: var(--verde_claro);" value="<?= htmlspecialchars($usuario->getTelefone()) ?>">
             <button type="submit" value="atualizar">Atualizar</button>
         </form>
-        <section class="tabela" style="display: flex; flex-direction: column; align-items: center;">
+        <form action="editarSenha.php" method="POST" style="margin-top: 20px; display: flex; justify-content: center;">
+            <button type="submit" class="editar">Mudar Senha</button>
+        </form>
         </section>
     </main>
     <script>
