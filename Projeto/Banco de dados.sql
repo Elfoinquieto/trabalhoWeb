@@ -31,13 +31,16 @@ CREATE TABLE `pedidos` (
   `descricao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `modelo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `saite` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `statos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pendente',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT fk_pedidos_modelo FOREIGN KEY (modelo) REFERENCES modelos(nome)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT fk_pedidos_modelo FOREIGN KEY (`modelo`) REFERENCES modelos(`nome`),
+  CONSTRAINT fk_pedidos_email FOREIGN KEY (`email`) REFERENCES usuarios(`email`)
+) ENGINE=InnoDB 
+  DEFAULT CHARSET=utf8mb4 
+  COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Table structure for table `modelos`

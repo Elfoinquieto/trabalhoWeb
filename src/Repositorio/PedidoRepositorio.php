@@ -12,7 +12,23 @@ class PedidoRepositorio
 
     public function formarObjeto(array $dados): Pedido
     {
-        return new Pedido((int) $dados['id'], $dados['nome'], $dados['pacote'], $dados['descricao'], $dados['saite'] ?? '', $dados['modelo'], $dados['statos'] ?? 'pendente');
+        return new Pedido((int) $dados['id'], $dados['nome'], $dados['pacote'], $dados['descricao'], $dados['saite'] ?? '', $dados['modelo'], $dados['statos'] ?? 'pendente', $dados['email']);
+    }
+    public function listarPorEmail(string $email): array
+    {
+        $sql = "SELECT * FROM pedidos WHERE email = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $email);
+        $stmt->execute();
+
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pedidos = [];
+
+        foreach ($dados as $linha) {
+            $pedidos[] = $this->formarObjeto($linha);
+        }
+
+        return $pedidos;
     }
     public function contarTotal(): int
     {
@@ -87,28 +103,31 @@ class PedidoRepositorio
         return $dados ? $this->formarObjeto($dados) : null;
     }
 
-    public function salvar(Pedido $modelo): void
+    public function salvar(Pedido $pedido): void
     {
-        $sql = "INSERT INTO pedidos(nome, pacote, descricao, saite, modelo, statos) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO pedidos(nome, pacote, descricao, saite, modelo, statos, email) VALUES (?,?,?,?,?,?,?)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $modelo->getNome());
-        $stmt->bindValue(2, $modelo->getPacote());
-        $stmt->bindValue(3, $modelo->getDescricao());
-        $stmt->bindValue(4, $modelo->getSaite());
+        $stmt->bindValue(1, $pedido->getNome());
+        $stmt->bindValue(2, $pedido->getPacote());
+        $stmt->bindValue(3, $pedido->getDescricao());
+        $stmt->bindValue(4, $pedido->getSaite());
+        $stmt->bindValue(5, $pedido->getModelo());
+        $stmt->bindValue(6, $pedido->getStatos());
+        $stmt->bindValue(7, $pedido->getEmail());
         $stmt->execute();
     }
 
-    public function alterar(Pedido $modelo): void
+    public function alterar(Pedido $pedido): void
     {
         $sql = "UPDATE pedidos SET nome = ?, pacote = ?, descricao = ?, saite = ?, modelo = ?, statos = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $modelo->getNome());
-        $stmt->bindValue(2, $modelo->getPacote());
-        $stmt->bindValue(3, $modelo->getDescricao());
-        $stmt->bindValue(4, $modelo->getSaite());
-        $stmt->bindValue(5, $modelo->getModelo());
-        $stmt->bindValue(6, $modelo->getStatos());
-        $stmt->bindValue(7, $modelo->getId());
+        $stmt->bindValue(1, $pedido->getNome());
+        $stmt->bindValue(2, $pedido->getPacote());
+        $stmt->bindValue(3, $pedido->getDescricao());
+        $stmt->bindValue(4, $pedido->getSaite());
+        $stmt->bindValue(5, $pedido->getModelo());
+        $stmt->bindValue(6, $pedido->getStatos());
+        $stmt->bindValue(7, $pedido->getId());
         $stmt->execute();
     }
 
@@ -120,7 +139,7 @@ class PedidoRepositorio
 
     public function listar(): array
     {
-        $sql = "SELECT id, nome, pacote, descricao, saite, modelo FROM pedidos";
+        $sql = "SELECT id, nome, pacote, descricao, saite, email, modelo FROM pedidos";
         $stmt = $this->pdo->query($sql);
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

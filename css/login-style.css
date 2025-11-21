@@ -152,7 +152,25 @@ main {
   cursor: pointer;
   transition: all 0.5s ease-in;
 }
-
+.form select {
+  background-color: #589693;
+  width: 400px;
+  height: 30px;
+  border-radius: 30px;
+  border: none;
+  padding-left: 10px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  transition: all 0.8s ease;
+  color: white;
+}
+.form select:hover {
+  transform: scale(1.05);
+}
+.form select:focus {
+  filter: saturate(150%);
+  transform: scale(1.05);
+}
 .form button:hover {
   filter: brightness(110%);
   transform: scale(1.05);

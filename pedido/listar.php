@@ -110,6 +110,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                                 style="color: inherit; text-decoration: none;">Pacote
                                 <?= mostrarIconeOrdenacao('pacote', $ordem, $direcao) ?></a></th>
                         <th>Descrição</th>
+                        <th>Usuario</th>
                         <th>Site</th>
                         <th>Modelo</th>
                         <th>Status</th>
@@ -118,26 +119,28 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($pedidos as $pedido):?>
-                    <?php if (!in_array($pedido->getId(), $_SESSION['ocultos'])):?>
-                        <tr>
-                            <td><?= htmlspecialchars($pedido->getNome()) ?></td>
-                            <td><?= htmlspecialchars($pedido->getPacote()) ?></td>
-                            <td><?= htmlspecialchars($pedido->getDescricao()) ?></td>
-                            <td>
-                                <form action="mudarStatos.php" method="POST"
-                                    style="display: flex; align-items: center; justify-content: space-around;">
-                                    <?= htmlspecialchars($pedido->getSaite()) ?>
-                                    <?php if ($pedido->getSaite() == ''): ?>
-                                        <input id="saite" name="saite" type="file" webkitdirectory multiple>
-                                    <?php endif; ?>
+                    <?php foreach ($pedidos as $pedido): ?>
+                        <?php if (!in_array($pedido->getId(), $_SESSION['ocultos'])): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($pedido->getNome()) ?></td>
+                                <td><?= htmlspecialchars($pedido->getPacote()) ?></td>
+                                <td><?= htmlspecialchars($pedido->getDescricao()) ?></td>
+                                <td><?= htmlspecialchars($pedido->getEmail()) ?></td>
+                                <td>
+                                    <form action="mudarStatos.php" method="POST"
+                                        style="display: flex; align-items: center; justify-content: space-around;">
+                                        <?= htmlspecialchars($pedido->getSaite()) ?>
+                                        <?php if ($pedido->getSaite() == ''): ?>
+                                            <input id="saite" name="saite" type="file" webkitdirectory multiple>
+                                        <?php endif; ?>
                                 </td>
                                 <td><?= htmlspecialchars($pedido->getModelo()) ?></td>
                                 <td>
                                     <?php if ($pedido->getStatos() != 'Negado'): ?>
                                         <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
                                         <select name="statos" class="select-permissao">
-                                            <option value="pendente" <?= $pedido->getStatos() === 'pendente' ? 'selected' : '' ?>>Pendente
+                                            <option value="pendente" <?= $pedido->getStatos() === 'pendente' ? 'selected' : '' ?>>
+                                                Pendente
                                             </option>
                                             <option value="entregue" <?= $pedido->getStatos() === 'entregue' ? 'selected' : '' ?>>
                                                 Entregue</option>
@@ -149,27 +152,27 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
 
                                 </td>
                                 <td>
-                                <?php if ($pedido->getStatos() != 'Negado'): ?>
-                                    <button type="submit" class="editar">Enviar Mudanças</button>
-                                    </form>
-                                    <br/>
-                                    <form action="negar.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
-                                        <input type="submit" class="excluir" value="Negar Pedido">
-                                    </form>
-                                
-                                <?php else: ?>
-                                </form>
-                                    <p>Pedido Negado</p>
-                                    <br/>
-                                    <form action="ocultarPedido.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
-                                        <input type="submit" class="excluir" value="Deixar de exibir">
-                                    </form>
-                                <?php endif; ?>
+                                    <?php if ($pedido->getStatos() != 'Negado'): ?>
+                                        <button type="submit" class="editar">Enviar Mudanças</button>
+                                        </form>
+                                        <br />
+                                        <form action="negar.php" method="post">
+                                            <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                            <input type="submit" class="excluir" value="Negar Pedido">
+                                        </form>
+
+                                    <?php else: ?>
+                                        </form>
+                                        <p>Pedido Negado</p>
+                                        <br />
+                                        <form action="ocultarPedido.php" method="post">
+                                            <input type="hidden" name="id" value="<?= $pedido->getId() ?>">
+                                            <input type="submit" class="excluir" value="Deixar de exibir">
+                                        </form>
+                                    <?php endif; ?>
                                 </td>
-                        </tr>
-                    <?php endif; ?>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
