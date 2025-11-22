@@ -33,24 +33,19 @@ if ($usuarioLogado) {
         <img src="img/logo.jpeg" alt="Koala WebStudio" />
         <div class="links">
             <a href="index.php">Home</a>
-            <a href="nossosTrabalhos.php">Nosso Trabalho</a>
-            <a href="">Pacotes</a>
-            <a href="">Modelos</a>
-            <a href="">Sobre Nós</a>
+            <a href="nossosTrabalhos.php">Nossos Trabalhos</a>
+            <a href="pacotes.php">Pacotes</a>
+            <a href="#">Modelos</a>
+            <a href="sobreNos.php">Sobre Nós</a>
         </div>
         <div class="topo-direita">
             <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                 ?>
                 <a href="admin.php" class="botao-admin">Admin</a>
             <?php } ?>
-            <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
-                onclick="location.href='./usuario/editar.php'">
+            <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;" onclick="location.href='./usuario/editar.php'">
             <form action="logout.php" method="post" style="display:inline;">
-                <?php if ($usuarioLogado): ?>
-                    <button type="submit" class="botao-sair">Sair</button>
-                <?php else: ?>
-                    <button type="submit" class="editar">Entrar</button>
-                <?php endif ?>
+                <button type="submit" class="botao-sair">Sair</button>
             </form>
         </div>
     </div>

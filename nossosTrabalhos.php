@@ -34,7 +34,7 @@ if ($usuarioLogado) {
             <a href="nossosTrabalhos.php">Nossos Trabalhos</a>
             <a href="pacotes.php">Pacotes</a>
             <a href="#">Modelos</a>
-            <a href="#">Sobre Nós</a>
+            <a href="sobreNos.php">Sobre Nós</a>
         </div>
         <div class="topo-direita">
             <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {

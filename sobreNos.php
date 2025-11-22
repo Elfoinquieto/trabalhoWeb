@@ -32,10 +32,11 @@ if ($usuarioLogado) {
             <a href="nossosTrabalhos.php">Nossos Trabalhos</a>
             <a href="pacotes.php">Pacotes</a>
             <a href="#">Modelos</a>
-            <a href="#">Sobre Nós</a>
+            <a href="sobreNos.php">Sobre Nós</a>
         </div>
         <div class="topo-direita">
-            <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') { ?>
+            <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
+                ?>
                 <a href="admin.php" class="botao-admin">Admin</a>
             <?php } ?>
             <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;" onclick="location.href='./usuario/editar.php'">
