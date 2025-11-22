@@ -4,10 +4,15 @@ require __DIR__ . "/src/conexao-bd.php";
 require_once __DIR__ . "/src/Modelo/Usuario.php";
 require_once __DIR__ . "/src/Repositorio/UsuarioRepositorio.php";
 
-$usuarioLogado = $_SESSION['usuario'];
+$usuarioLogado = $_SESSION['usuario'] ?? null;
 $repo = new UsuarioRepositorio($pdo);
 
-$usuario = $repo->buscarPorEmail($usuarioLogado);
+if ($usuarioLogado) {
+    $usuario = $repo->buscarPorEmail($usuarioLogado);
+} else {
+    $usuario = null;
+}
+
 
 ?>
 
@@ -34,14 +39,18 @@ $usuario = $repo->buscarPorEmail($usuarioLogado);
             <a href="">Sobre Nós</a>
         </div>
         <div class="topo-direita">
-            <?php if ($usuario->getPermissao() === 'admin') {
+            <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                 ?>
                 <a href="admin.php" class="botao-admin">Admin</a>
             <?php } ?>
             <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
                 onclick="location.href='./usuario/editar.php'">
             <form action="logout.php" method="post" style="display:inline;">
-                <button type="submit" class="botao-sair">Sair</button>
+                <?php if ($usuarioLogado): ?>
+                    <button type="submit" class="botao-sair">Sair</button>
+                <?php else: ?>
+                    <button type="submit" class="editar">Entrar</button>
+                <?php endif ?>
             </form>
         </div>
     </div>
@@ -79,7 +88,7 @@ $usuario = $repo->buscarPorEmail($usuarioLogado);
             </div>
             <div class="buttons-row">
                 <button class="entrar"> <a href="#">Pacotes</a></button>
-                <button class="entrar"> <a href="#">Nossos Trabalhos</a></button>
+                <button class="entrar"> <a href="nossosTrabalhos.php">Nossos Trabalhos</a></button>
                 <button class="entrar"> <a href="#">Sobre Nós</a></button>
             </div>
         </div>

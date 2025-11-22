@@ -15,6 +15,7 @@ require_once __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
 
 $usuarioRepositorio = new UsuarioRepositorio($pdo);
 $usuarios = $usuarioRepositorio->listar();
+$usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
 
 //Itens por página da url
 $itens_por_pagina = filter_input(INPUT_GET, 'itens_por_pagina', FILTER_VALIDATE_INT) ?: 5;
@@ -61,6 +62,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/info.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/admin-style.css">
 
@@ -70,10 +72,31 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
 
 <body>
     <main>
-        <div class="topo-direita">
-            <form action="../logout.php" method="post" style="display:inline;">
-                <button type="submit" class="botao-sair">Sair</button>
-            </form>
+        <div class="navbar-info">
+            <img src="../img/logo.jpeg" alt="Koala WebStudio" />
+            <div class="links">
+                <a href="../index.php">Home</a>
+                <a href="../nossosTrabalhos.php">Nosso Trabalho</a>
+                <a href="">Pacotes</a>
+                <a href="">Modelos</a>
+                <a href="">Sobre Nós</a>
+            </div>
+            <div class="topo-direita">
+                <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
+                    ?>
+                    <a href="../admin.php" class="botao-admin">Admin</a>
+                <?php } ?>
+                <img src="../img/user (2).png" alt=""
+                    style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
+                    onclick="location.href='../usuario/editar.php'">
+                <form action="../logout.php" method="post" style="display:inline;">
+                    <?php if ($usuarioLogado): ?>
+                        <button type="submit" class="botao-sair">Sair</button>
+                    <?php else: ?>
+                        <button type="submit" class="editar">Entrar</button>
+                    <?php endif ?>
+                </form>
+            </div>
         </div>
         <section class="navbar">
             <a href="../admin.php">Painel</a>

@@ -49,12 +49,12 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
             <div class="topo-direita">
                 <?php if ($usuario->getPermissao() === 'admin') {
                     ?>
-                    <a href="admin.php" class="botao-admin">Admin</a>
+                    <a href="../admin.php" class="botao-admin">Admin</a>
                 <?php } ?>
                 <img src="../img/user (2).png" alt=""
                     style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
-                    onclick="location.href='./usuario/editar.php'">
-                <form action="logout.php" method="post" style="display:inline;">
+                    onclick="location.href='../usuario/editar.php'">
+                <form action="../logout.php" method="post" style="display:inline;">
                     <button type="submit" class="botao-sair">Sair</button>
                 </form>
             </div>
