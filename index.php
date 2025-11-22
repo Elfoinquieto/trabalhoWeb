@@ -87,9 +87,9 @@ if ($usuarioLogado) {
                 </div>
             </div>
             <div class="buttons-row">
-                <button class="entrar"> <a href="#">Pacotes</a></button>
+                <button class="entrar"> <a href="pacotes.php">Pacotes</a></button>
                 <button class="entrar"> <a href="nossosTrabalhos.php">Nossos Trabalhos</a></button>
-                <button class="entrar"> <a href="#">Sobre Nós</a></button>
+                <button class="entrar"> <a href="sobreNos.php">Sobre Nós</a></button>
             </div>
         </div>
         <div class="main-right">
