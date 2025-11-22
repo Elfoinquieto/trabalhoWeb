@@ -41,7 +41,7 @@ $usuario = $usuarioRepositorio->buscarPorEmail($usuarioLogado);
             <img src="../img/logo.jpeg" alt="Koala WebStudio" />
             <div class="links">
                 <a href="../index.php">Home</a>
-                <a href="">Nosso Trabalho</a>
+                <a href="../nossosTrabalhos.php">Nosso Trabalho</a>
                 <a href="">Pacotes</a>
                 <a href="">Modelos</a>
                 <a href="">Sobre Nós</a>
