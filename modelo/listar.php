@@ -161,7 +161,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                             <td><?= htmlspecialchars($modelo->getNome()) ?></td>
                             <td><?= htmlspecialchars($modelo->getPacote()) ?></td>
                             <td><?= htmlspecialchars($modelo->getDescricao()) ?></td>
-                            <td><img src="../img/<?= htmlspecialchars($modelo->getImagem()) ?>" alt=""></td>
+                            <td><img src="../img-modelo/<?= htmlspecialchars($modelo->getImagem()) ?>" alt=""></td>
                             <td>
                                 <div class="form-action">
                                     <form action="editar.php" method="POST">

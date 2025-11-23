@@ -34,7 +34,7 @@ $erro = $_GET['erro'] ?? '';
                         <p class="mensagem-erro">Já existe um modelo com esse nome.</p>
                     <?php endif; ?>
                 </div>
-                <form action="inserir.php" method="POST" class="form">
+                <form action="inserir.php" method="POST" class="form" enctype="multipart/form-data">
 
                     <label class="titulo-topico" for="nome">Nome</label>
                     <input type="nome" id="nome" name="nome">
