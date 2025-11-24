@@ -3,45 +3,83 @@ require __DIR__ . "/../src/conexao-bd.php";
 require_once __DIR__ . "/../src/Modelo/Modelo.php";
 require_once __DIR__ . "/../src/Repositorio/ModeloRepositorio.php";
 
-// Captura dos dados do formulário
-$id = $_POST['id'] ?? '';
-$nome = trim($_POST['nome'] ?? '');
-$descricao = trim($_POST['descricao'] ?? '');
-$pacote = trim($_POST['pacote'] ?? '');
-$imagem = trim($_POST['imagem'] ?? '');
-
 $repo = new ModeloRepositorio($pdo);
 
-// Verificação de campos obrigatórios
-if ($nome === '' || $descricao === '' || $pacote === '' || $imagem === '') {
-    header('Location: editar.php?erro=campos');
+// Captura dados do formulário
+$id = $_POST['id'] ?? null;
+$nome = trim($_POST['nome'] ?? '');
+$descricao = trim($_POST['descricao'] ?? '');
+$imagemExistente = $_POST['imagem_existente'] ?? null;
+
+// Validação básica
+if (!$id || $nome === '' || $descricao === '') {
+    header("Location: editar.php?id={$id}&erro=campos");
     exit;
 }
 
-// Buscar o modelo existente
 $sql = "SELECT * FROM modelos WHERE id = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$id]);
-$dados = $stmt->fetch(PDO::FETCH_ASSOC);
+$modeloAtual = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$dados) {
+if (!$modeloAtual) {
     echo "Modelo não encontrado!";
     exit;
 }
 
-// Cria o objeto atualizado
+
+$uploadsDir = __DIR__ . '/../img-modelo/';
+if (!is_dir($uploadsDir)) {
+    mkdir($uploadsDir, 0755, true);
+}
+
+$nomeImagem = $imagemExistente;
+
+
+if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+
+    $tmpPath = $_FILES['imagem']['tmp_name'];
+    $imgInfo = @getimagesize($tmpPath);
+
+    if ($imgInfo !== false) {
+        // Determina extensão correta
+        switch ($imgInfo['mime']) {
+            case 'image/jpeg':
+                $ext = '.jpg';
+                break;
+            case 'image/png':
+                $ext = '.png';
+                break;
+            case 'image/gif':
+                $ext = '.gif';
+                break;
+            default:
+                $ext = image_type_to_extension($imgInfo[2]) ?: '';
+        }
+
+        $novoNome = uniqid('img_', true) . $ext;
+        $destino = $uploadsDir . $novoNome;
+
+        if (move_uploaded_file($tmpPath, $destino)) {
+
+            if ($imagemExistente && file_exists($uploadsDir . $imagemExistente)) {
+                unlink($uploadsDir . $imagemExistente);
+            }
+
+            $nomeImagem = $novoNome;
+        }
+    }
+}
+
 $modelo = new Modelo(
     (int) $id,
     $nome,
-    $pacote,
     $descricao,
-    $imagem
+    $nomeImagem
 );
 
-// Atualiza no banco
 $repo->alterar($modelo);
 
-// Redireciona de volta para a lista
-header('Location: listar.php');
+header("Location: listar.php");
 exit;
 ?>

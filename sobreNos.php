@@ -16,6 +16,7 @@ if ($usuarioLogado) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,7 @@ if ($usuarioLogado) {
     <link rel="stylesheet" href="css/admin-style.css">
     <link rel="stylesheet" href="css/info.css">
 </head>
+
 <body>
     <div class="navbar-info">
         <img src="img/logo.jpeg" alt="Koala WebStudio" />
@@ -33,13 +35,16 @@ if ($usuarioLogado) {
             <a href="pacotes.php">Pacotes</a>
             <a href="#">Modelos</a>
             <a href="sobreNos.php">Sobre Nós</a>
+            <a href="pedido-usuario/listar.php">Meus Pedidos</a>
         </div>
         <div class="topo-direita">
             <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                 ?>
-                <a href="admin.php" class="botao-admin">Admin</a>
+                <img src="img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
+                    onclick="location.href='admin.php'">
             <?php } ?>
-            <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;" onclick="location.href='./usuario/editar.php'">
+            <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
+                onclick="location.href='./usuario/editar.php'">
             <form action="logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Sair</button>
             </form>
@@ -62,7 +67,8 @@ if ($usuarioLogado) {
                 <h3 class="sobre-quem-heading">Quem Somos?</h3>
                 <div class="sobre-quem-desc">
                     Na Koala WebStudio, acreditamos que a presença digital deve ser simples, bonita e eficiente.
-                    Assim como o koala, que transmite tranquilidade e confiança, buscamos criar experiências digitais que tragam conforto e resultados para nossos clientes.
+                    Assim como o koala, que transmite tranquilidade e confiança, buscamos criar experiências digitais
+                    que tragam conforto e resultados para nossos clientes.
                 </div>
                 <div class="sobre-divider"></div>
             </div>
@@ -79,19 +85,19 @@ if ($usuarioLogado) {
             </div>
             <div class="sobre-estatisticas-row">
                 <div class="estatistica">
-                    <div class="estatistica-num" >+ 1000</div>
+                    <div class="estatistica-num">+ 1000</div>
                     <div class="estatistica-titulo">Sites criados</div>
                 </div>
                 <div class="estatistica">
-                    <div class="estatistica-num" >+ 20</div>
+                    <div class="estatistica-num">+ 20</div>
                     <div class="estatistica-titulo">Anos no mercado</div>
                 </div>
                 <div class="estatistica">
-                    <div class="estatistica-num" >45</div>
+                    <div class="estatistica-num">45</div>
                     <div class="estatistica-titulo">Prêmios ganhos</div>
                 </div>
                 <div class="estatistica">
-                    <div class="estatistica-num" >+ 30</div>
+                    <div class="estatistica-num">+ 30</div>
                     <div class="estatistica-titulo">Colaboradores</div>
                 </div>
             </div>
@@ -105,4 +111,5 @@ if ($usuarioLogado) {
         </div>
     </div>
 </body>
+
 </html>

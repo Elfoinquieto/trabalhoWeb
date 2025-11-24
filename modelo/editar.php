@@ -63,7 +63,7 @@ if (method_exists($modelo, 'getImagem')) {
                     <p class="mensagem-erro">Preencha todos os campos.</p>
                 <?php endif; ?>
 
-                <form action="atualizar.php" method="POST" class="form">
+                <form action="atualizar.php" method="POST" class="form" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($modelo->getId()) ?>">
 
                     <label class="titulo-topico" for="nome">Nome</label>
@@ -73,16 +73,14 @@ if (method_exists($modelo, 'getImagem')) {
                     <input type="text" id="descricao" name="descricao"
                         value="<?= htmlspecialchars($modelo->getDescricao()) ?>">
 
-                    <label class="titulo-topico" for="pacote">Pacote</label>
-                    <input type="text" id="pacote" name="pacote" value="<?= htmlspecialchars($modelo->getPacote()) ?>">
-
                     <label class="titulo-topico" for="imagem">Imagem</label>
                     <input id="imagem" name="imagem" type="file" accept="image/*">
                     <?php if (!empty($valorImagem)): ?>
                         <div class="preview-imagem">
                             <!-- Ajuste o caminho conforme onde você armazena as imagens (ex: ../uploads/) -->
                             <p>Imagem atual: <?= htmlspecialchars($valorImagem) ?></p>
-                            <img src="../img/<?= htmlspecialchars( $valorImagem) ?>" alt="Imagem" style="max-width:200px;display:block;margin-top:8px;">
+                            <img src="../img-modelo/<?= htmlspecialchars($valorImagem) ?>" alt="Imagem"
+                                style="max-width:200px;display:block;margin-top:8px;">
                             <!-- Mantém o nome da imagem atual caso o usuário não envie nova -->
                             <input type="hidden" name="imagem_existente" value="<?= htmlspecialchars($valorImagem) ?>">
                         </div>

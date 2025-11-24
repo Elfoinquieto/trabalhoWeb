@@ -292,7 +292,7 @@ table td {
   bottom: 0;
   width: 0;
   height: 3px;
-  background: #ffffff; /* cor destaque */
+  background: #ffffff;
   border-radius: 2px;
   transform: translateX(-50%);
   transition: width 0.28s;
@@ -359,4 +359,56 @@ table td {
   font-weight: 500;
   text-align: center;
   margin-bottom: 20px;
+}
+.paginacao {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.paginacao a,
+.paginacao strong {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 500;
+}
+
+.paginacao a {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.paginacao a:hover {
+  background: var(--verde_escuro);
+  color: #fff;
+  border-color: #f8f8f8;
+}
+
+.paginacao strong {
+  background: var(--verde_escuro);
+  color: #fff;
+  border: 1px solid #ffffff;
+  cursor: default;
+}
+
+.paginacao a:first-child,
+.paginacao a:last-child {
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .paginacao {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .paginacao a,
+  .paginacao strong {
+    padding: 6px 8px;
+  }
 }

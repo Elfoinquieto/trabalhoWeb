@@ -64,6 +64,7 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="../css/info.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/admin-style.css">
@@ -93,11 +94,13 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                 <a href="">Pacotes</a>
                 <a href="">Modelos</a>
                 <a href="">Sobre Nós</a>
+                <a href="../pedido-usuario/listar.php">Meus Pedidos</a>
             </div>
             <div class="topo-direita">
                 <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                     ?>
-                    <a href="../admin.php" class="botao-admin">Admin</a>
+                    <img src="../img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
+                        onclick="location.href='../admin.php'">
                 <?php } ?>
                 <img src="../img/user (2).png" alt=""
                     style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
@@ -146,9 +149,6 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                         <th><a href="<?= gerarUrlOrdenacao('nome', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
                                 style="color: inherit; text-decoration: none;">Nome
                                 <?= mostrarIconeOrdenacao('nome', $ordem, $direcao) ?></a></th>
-                        <th><a href="<?= gerarUrlOrdenacao('pacote', $pagina_atual, $ordem, $direcao, $itens_por_pagina) ?>"
-                                style="color: inherit; text-decoration: none;">Pacote
-                                <?= mostrarIconeOrdenacao('pacote', $ordem, $direcao) ?></a></th>
                         <th>Descrição</th>
                         <th>Imagem</th>
                         <th colspan="2">Action</th>
@@ -159,7 +159,6 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                         <tr>
                             <td><?= htmlspecialchars($modelo->getId()) ?></td>
                             <td><?= htmlspecialchars($modelo->getNome()) ?></td>
-                            <td><?= htmlspecialchars($modelo->getPacote()) ?></td>
                             <td><?= htmlspecialchars($modelo->getDescricao()) ?></td>
                             <td><img src="../img-modelo/<?= htmlspecialchars($modelo->getImagem()) ?>" alt=""></td>
                             <td>
@@ -180,6 +179,28 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                 </tbody>
             </table>
 
+            <div class="paginacao">
+                <?php if ($total_paginas > 1): ?>
+                    <?php if ($pagina_atual > 1): ?>
+                        <a
+                            href="?pagina=<?= $pagina_atual - 1 ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>">Anterior</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                        <?php if ($i == $pagina_atual): ?>
+                            <strong><?= $i ?></strong>
+                        <?php else: ?>
+                            <a
+                                href="?pagina=<?= $i ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>"><?= $i ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if ($pagina_atual < $total_paginas): ?>
+                        <a
+                            href="?pagina=<?= $pagina_atual + 1 ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>">Próximo</a>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </section>
     </main>
 

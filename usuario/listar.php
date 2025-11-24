@@ -80,11 +80,13 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                 <a href="">Pacotes</a>
                 <a href="">Modelos</a>
                 <a href="">Sobre Nós</a>
+                <a href="../pedido-usuario/listar.php">Meus Pedidos</a>
             </div>
             <div class="topo-direita">
                 <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                     ?>
-                    <a href="../admin.php" class="botao-admin">Admin</a>
+                    <img src="../img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
+                        onclick="location.href='../admin.php'">
                 <?php } ?>
                 <img src="../img/user (2).png" alt=""
                     style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
@@ -167,6 +169,28 @@ function mostrarIconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <div class="paginacao">
+                <?php if ($total_paginas > 1): ?>
+                    <?php if ($pagina_atual > 1): ?>
+                        <a
+                            href="?pagina=<?= $pagina_atual - 1 ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>">Anterior</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                        <?php if ($i == $pagina_atual): ?>
+                            <strong><?= $i ?></strong>
+                        <?php else: ?>
+                            <a
+                                href="?pagina=<?= $i ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>"><?= $i ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if ($pagina_atual < $total_paginas): ?>
+                        <a
+                            href="?pagina=<?= $pagina_atual + 1 ?>&ordem=<?= htmlspecialchars($ordem) ?>&direcao=<?= htmlspecialchars($direcao) ?>&itens_por_pagina=<?= $itens_por_pagina ?>">Próximo</a>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </section>
     </main>
 

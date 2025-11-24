@@ -36,6 +36,7 @@ $pedidos = $pedidoRepositorio->listarPorEmail($usuarioLogado);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/admin-style.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/info.css">
 
 
@@ -52,13 +53,17 @@ $pedidos = $pedidoRepositorio->listarPorEmail($usuarioLogado);
                 <a href="../pacotes.php">Pacotes</a>
                 <a href="#">Modelos</a>
                 <a href="../sobreNos.php">Sobre Nós</a>
+                <a href="../pedido-usuario/listar.php">Meus Pedidos</a>
             </div>
             <div class="topo-direita">
                 <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') {
                     ?>
-                    <a href="../admin.php" class="botao-admin">Admin</a>
+                    <img src="../img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
+                        onclick="location.href='../admin.php'">
                 <?php } ?>
-                <img src="../img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;" onclick="location.href='../usuario/editar.php'">
+                <img src="../img/user (2).png" alt=""
+                    style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
+                    onclick="location.href='../usuario/editar.php'">
                 <form action="../logout.php" method="post" style="display:inline;">
                     <button type="submit" class="botao-sair">Sair</button>
                 </form>
@@ -124,7 +129,7 @@ $pedidos = $pedidoRepositorio->listarPorEmail($usuarioLogado);
             <div class="container">
                 <p class="mensagem-pedido">Admins não podem realizar pedidos</p>
                 <form action="../logout.php" method="post" style="display:inline;">
-                    <button type="submit" class="botao-sair">Refazer Login</button>
+                    <button type="submit" class="editar">Refazer Login</button>
                 </form>
             </div>
         <?php endif; ?>

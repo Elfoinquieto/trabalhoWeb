@@ -33,13 +33,13 @@ $modelos = $modeloRepositorio->listar();
 
 <body>
     <main>
-        <section class="nav-bar">
+        <section class="nav-bar"></section>
 
-        </section>
         <section class="form-section">
             <div class="form-container">
                 <h1>Criação de pedido</h1>
                 <h2>Faça o pedido de um website aqui!</h2>
+
                 <div class="erro">
                     <?php if ($erro === 'campos'): ?>
                         <p class="mensagem-erro">Preencha todos os campos.</p>
@@ -47,36 +47,39 @@ $modelos = $modeloRepositorio->listar();
                         <p class="mensagem-erro">Já existe um modelo com esse nome.</p>
                     <?php endif; ?>
                 </div>
+
                 <form action="inserir.php" method="POST" class="form">
+
                     <input type="hidden" value="<?php echo htmlspecialchars($usuarioLogado); ?>" name="email">
 
                     <label class="titulo-topico" for="nome">Nome do site</label>
-                    <input type="nome" id="nome" name="nome">
+                    <input type="text" id="nome" name="nome">
 
                     <label class="titulo-topico" for="modelo">Modelo</label>
-                    <select name="modelo" id="modelo"">
-    <?php foreach ($modelos as $modelo): ?>
-        <option 
-            value=" <?php echo htmlspecialchars($modelo->getNome()); ?>"
-                            data-pacote="<?php echo htmlspecialchars($modelo->getPacote()); ?>">
-                            <?php echo htmlspecialchars($modelo->getNome()); ?>
+                    <select name="modelo" id="modelo">
+                        <?php foreach ($modelos as $modelo): ?>
+                            <option value="<?php echo htmlspecialchars($modelo->getNome()); ?>">
+                                <?php echo htmlspecialchars($modelo->getNome()); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
 
                     <label class="titulo-topico" for="pacote">Pacote</label>
-                    <input type="text" id="pacote" name="pacote" readonly>
+                    <select name="pacote" id="pacote">
+                        <option value="Start">Start</option>
+                        <option value="Pro">Pro</option>
+                        <option value="Premium">Premium</option>
+                    </select>
 
-
-                    <label class="titulo-topico" for="descricao">Descricao do site</label>
+                    <label class="titulo-topico" for="descricao">Descrição do site</label>
                     <input type="text" id="descricao" name="descricao">
-
 
                     <button type="submit" value="cadastrar">Realizar Pedido</button>
                 </form>
             </div>
+
             <div class="form-img">
-                <img src="../img/logo.jpeg" alt="" class="logo">
+                <img src="../img/logo.jpeg" alt="Logo" class="logo">
             </div>
         </section>
     </main>
@@ -90,16 +93,6 @@ $modelos = $modeloRepositorio->listar();
                 }, 5000);
             }
         });
-        function atualizarPacote() {
-            const select = document.getElementById("modelo");
-            const opcao = select.options[select.selectedIndex];
-            const pacote = opcao.getAttribute("data-pacote");
-            document.getElementById("pacote").value = pacote;
-        }
-
-        document.getElementById("modelo").addEventListener("change", atualizarPacote);
-        window.addEventListener("DOMContentLoaded", atualizarPacote);
-
     </script>
 </body>
 

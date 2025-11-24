@@ -42,10 +42,6 @@ $erro = $_GET['erro'] ?? '';
                     <label class="titulo-topico" for="descricao">Descrição</label>
                     <input type="text" id="descricao" name="descricao">
 
-                    <label class="titulo-topico" for="pacote">Pacote</label>
-                    <input type="text" id="pacote" name="pacote">
-
-
                     <label class="titulo-topico" for="imagem">Imagem</label>
                     <input id="imagem" name="imagem" type="file" accept="image/*">
 

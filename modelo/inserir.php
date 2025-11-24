@@ -5,7 +5,6 @@ require_once __DIR__ . "/../src/Repositorio/ModeloRepositorio.php";
 
 $nome = trim($_POST['nome'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
-$pacote = trim($_POST['pacote'] ?? '');
 
 $repo = new ModeloRepositorio($pdo);
 
@@ -19,6 +18,7 @@ $uploadsDir = __DIR__ . '/../img-modelo/';
 if (!is_dir($uploadsDir)) {
     mkdir($uploadsDir, 0755, true);
 }
+$nomeImagem = null;
 
 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
 
@@ -57,7 +57,7 @@ if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
 
 
 
-if ($nome === '' || $pacote === '' || $descricao === '') {
+if ($nome === '' || $descricao === '' || $nomeImagem == null) {
     header('Location: cadastrar.php?erro=campos');
     exit;
 }
@@ -65,7 +65,6 @@ if ($nome === '' || $pacote === '' || $descricao === '') {
 $repo->salvar(new Modelo(
     0,
     $nome,
-    $pacote,
     $descricao,
     $nomeImagem
 ));

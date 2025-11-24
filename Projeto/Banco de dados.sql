@@ -52,7 +52,6 @@ DROP TABLE IF EXISTS `modelos`;
 CREATE TABLE `modelos` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pacote` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `descricao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `imagem` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'logo.jpeg',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -68,7 +67,7 @@ CREATE TABLE `modelos` (
 
 LOCK TABLES `modelos` WRITE;
 /*!40000 ALTER TABLE `modelos` DISABLE KEYS */;
-INSERT INTO `modelos` VALUES (5,'Novo','Luxo','Bem novo','cafe.jpg','2025-10-06 19:18:19','2025-10-06 20:06:15');
+INSERT INTO `modelos` VALUES (5,'Novo','Luxo','img-modelo/cafe.png','2025-10-06 19:18:19','2025-10-06 20:06:15');
 /*!40000 ALTER TABLE `modelos` ENABLE KEYS */;
 UNLOCK TABLES;
 
