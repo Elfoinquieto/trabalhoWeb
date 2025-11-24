@@ -61,7 +61,8 @@ if ($usuarioLogado) {
         </div>
         <div class="topo-direita">
             <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') { ?>
-                <a href="admin.php" class="botao-admin">Admin</a>
+                <img src="img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
+                    onclick="location.href='admin.php'">
             <?php } ?>
             <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
                 onclick="location.href='./usuario/editar.php'">
