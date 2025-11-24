@@ -6,11 +6,27 @@ require_once __DIR__ . "/src/Modelo/Modelo.php";
 require_once __DIR__ . "/src/Repositorio/UsuarioRepositorio.php";
 require_once __DIR__ . "/src/Repositorio/ModeloRepositorio.php";
 
+if (isset($_GET['id'])) {
+    $id_limpo = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+
+    if (filter_var($id_limpo, FILTER_VALIDATE_INT) === 0 || filter_var($id_limpo, FILTER_VALIDATE_INT) !== false) {
+        $id = (int) $id_limpo;
+
+    } else {
+        header("Location: nossosModelos.php");
+        exit();
+    }
+
+} else {
+
+    header("Location: nossosModelos.php");
+    exit();
+}
+
 $usuarioLogado = $_SESSION['usuario'] ?? null;
 $repo = new UsuarioRepositorio($pdo);
 $repoModelo = new ModeloRepositorio($pdo);
-$modelos = $repoModelo->listar();
-
+$modelo = $repoModelo->buscarPorId($id);
 
 if ($usuarioLogado) {
     $usuario = $repo->buscarPorEmail($usuarioLogado);
@@ -25,17 +41,14 @@ if ($usuarioLogado) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossos Modelos - Koala WebStudio</title>
+    <title> Koala WebStudio</title>
     <link rel="stylesheet" href="css/informativas.css">
     <link rel="stylesheet" href="css/admin-style.css">
     <link rel="stylesheet" href="css/info.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-
 </head>
 
-
 <body>
-
     <div class="navbar-info">
         <img src="img/logo.jpeg" alt="Koala WebStudio" />
         <div class="links">
@@ -48,8 +61,7 @@ if ($usuarioLogado) {
         </div>
         <div class="topo-direita">
             <?php if ($usuario !== null && $usuario->getPermissao() === 'admin') { ?>
-                <img src="img/admin.png" alt="admin-logo" style="width: 40px; height: auto;"
-                    onclick="location.href='admin.php'">
+                <a href="admin.php" class="botao-admin">Admin</a>
             <?php } ?>
             <img src="img/user (2).png" alt="" style="width:40px; height:40px; margin-right: 10px; cursor:pointer;"
                 onclick="location.href='./usuario/editar.php'">
@@ -59,22 +71,25 @@ if ($usuarioLogado) {
         </div>
     </div>
 
-    <div class="main-content modelos-content">
-        <div class="main-left modelos-titulo">
-            <h2 class="modelos-heading">Nossos Modelos</h2>
-            <p class="modelos-desc">Escolha o modelo ideal para o seu projeto.</p>
-            <br>
+    <div class="modelo-destaque-content">
+        <div class="modelo-destaque-imgbox">
+            <img src="img-modelo/<?= htmlspecialchars($modelo->getImagem()) ?>" class="modelo-img">
         </div>
-        <div class="grid-modelos">
+        <div class="modelo-destaque-info">
+            <h2 class="modelo-destaque-titulo"><?= htmlspecialchars($modelo->getNome()) ?> </h2>
+            <p class="modelo-destaque-desc">
+                <?= htmlspecialchars($modelo->getDescricao()) ?>
+            </p>
+            <div class="modelo-destaque-sep"></div>
 
-            <?php foreach ($modelos as $modelo): ?>
-                <div class="modelo-box">
-                    <img src="img-modelo/<?= htmlspecialchars($modelo->getImagem()) ?>" class="modelo-img">
-                    <div class="modelo-footer"><a class="modelo-pacote"
-                            href="detalhesModelo.php?id=<?php echo htmlspecialchars($modelo->getId()) ?>">
-                            <?= htmlspecialchars($modelo->getNome()) ?></a></div>
-                </div>
-            <?php endforeach; ?>
+            <div class="modelo-destaque-botao">
+                <button class="entrar">
+                    <a
+                        href="pedido-usuario/cadastrar.php?modelo_nome=<?php echo htmlspecialchars($modelo->getNome()); ?>">
+                        Fazer Pedido
+                    </a>
+                </button>
+            </div>
         </div>
     </div>
 </body>

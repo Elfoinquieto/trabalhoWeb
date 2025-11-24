@@ -54,6 +54,15 @@ class ModeloRepositorio
         return $dados ? $this->formarObjeto($dados) : null;
     }
 
+    public function buscarPorId(int $id): ?Modelo
+    {
+        $sql = "SELECT id, nome, descricao, imagem FROM modelos WHERE id =?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $dados = $stmt->fetch();
+        return $dados ? $this->formarObjeto($dados) : null;
+    }
     public function salvar(Modelo $modelo): void
     {
         $sql = "INSERT INTO modelos(nome, descricao, imagem) VALUES (?,?,?)";
@@ -63,6 +72,7 @@ class ModeloRepositorio
         $stmt->bindValue(3, $modelo->getImagem());
         $stmt->execute();
     }
+
 
     public function alterar(Modelo $modelo): void
     {

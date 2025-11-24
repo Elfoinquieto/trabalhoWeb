@@ -33,7 +33,7 @@ if ($usuarioLogado) {
             <a href="index.php">Home</a>
             <a href="nossosTrabalhos.php">Nossos Trabalhos</a>
             <a href="pacotes.php">Pacotes</a>
-            <a href="#">Modelos</a>
+            <a href="nossosModelos.php">Modelos</a>
             <a href="sobreNos.php">Sobre Nós</a>
             <a href="pedido-usuario/listar.php">Meus Pedidos</a>
         </div>

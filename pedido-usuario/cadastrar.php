@@ -2,6 +2,7 @@
 session_start();
 $usuarioLogado = $_SESSION['usuario'] ?? null;
 $erro = $_GET['erro'] ?? '';
+$modeloSelecionado = htmlspecialchars($_GET['modelo_nome'] ?? '');
 
 if (!$usuarioLogado) {
     header('Location: ../login.php');
@@ -57,8 +58,10 @@ $modelos = $modeloRepositorio->listar();
 
                     <label class="titulo-topico" for="modelo">Modelo</label>
                     <select name="modelo" id="modelo">
-                        <?php foreach ($modelos as $modelo): ?>
-                            <option value="<?php echo htmlspecialchars($modelo->getNome()); ?>">
+                        <?php foreach ($modelos as $modelo):
+                            $isSelected = ($modelo->getNome() === $modeloSelecionado) ? 'selected' : '';
+                            ?>
+                            <option value="<?php echo htmlspecialchars($modelo->getNome()); ?>" <?php echo $isSelected; ?>>
                                 <?php echo htmlspecialchars($modelo->getNome()); ?>
                             </option>
                         <?php endforeach; ?>
